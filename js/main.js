@@ -1,7 +1,9 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7/+esm';
 
+//创建地图
 const map = L.map('map', {zoomSnap: 0}).setView([39.95, -75.16], 12);
 
+//添加底图（mapbox提供）
 L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/512/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibWp1bWJlLXRlc3QiLCJhIjoiY202dGU0ajBrMDF6cDJrb2hvYjdmNnVqbyJ9.56P4wOfH800ekNL19mAWWg', {
   maxZoom: 19,
   zoomOffset: -1,
@@ -10,12 +12,15 @@ L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/512/{z}/{x}
 }).addTo(map);
 window.map = map;
 
+//政党颜色参数
 function getPartyColor(party) {
   return party === 'REPUBLICAN' ? 'red' : 'blue';
 }
 
+//加载数据并添加到地图
 const resp = await fetch('data/pa_pres_results.geojson');
 const data = await resp.json();
+//添加数据的方法
 const dataLayer = L.geoJSON(data, {
   style: (feature) => {
     const party = feature.properties.party;
@@ -32,6 +37,7 @@ const dataLayer = L.geoJSON(data, {
 dataLayer.addTo(map);
 map.fitBounds(dataLayer.getBounds(), {padding: [32, 32]});
 
+//添加图例
 const legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function(map) {
@@ -51,9 +57,12 @@ legend.onAdd = function(map) {
 
 legend.addTo(map);
 
+//鼠标悬停显示县名（Tooltip）
 dataLayer.bindTooltip((layer) => layer.feature.properties.name);
+//点击事件
 dataLayer.addEventListener('click', (evt) => { //“click”是leaflet里的什么东西，evt又是什么，这里开始是在添加点击事件
   const props = evt.layer.feature.properties;
+  //更新信息面板
   const infoDiv = document.getElementById('info');
 
   const instructions = infoDiv.querySelector('.instructions');
@@ -79,6 +88,7 @@ dataLayer.addEventListener('click', (evt) => { //“click”是leaflet里的什�
 
   const width = resultsDiv.clientWidth;
   const height = 200;
+  //饼图数据
   const chartData = [{
     label: 'Democrat',
     value: props.party === 'DEMOCRAT' ? props.candidatevotes / props.totalvotes :
