@@ -4,8 +4,61 @@ body {
 }
 
 #map {
-  height: 50vh;
+  height: 60vh;
   background-color: purple;
+}
+#map {
+  float: left;       /* 靠左浮动 */
+  width: 100%;      /* 设定宽度-填满容器 */
+  height: 100%;     /* 设定高度-填满容器 */
+  margin-right: 5rem; /* 和右边内容留点空隙 */
+}
+
+h1 {
+  text-align: center;      /* 居中 */
+  font-family: 'Georgia', serif;  /* 换个更正式的字体 */
+  font-size: 2.5rem;       /* 调大字号 */
+  font-weight: bold;       /* 加粗 */
+  
+  border-bottom: 3px solid #626262; /*下划线 */
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  color: #222;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  
+  background: #f4f4f4;
+  padding: 35px;
+  border-radius: 8px;
+}
+
+.Subtitle {
+  text-align: center;      /* 居中 */
+  font-size: 1rem;       /* 调大字号 */
+  font-weight: normal;       /* 正常字体 */
+  font-style: italic;       /* 斜体 */
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  color: #000000;
+  
+  background: #ffffff;
+  padding: 5px;
+}
+
+#info {
+  height: 500px;   /* 保证它能撑满容器的高度 */
+  position: absolute;   /* 绝对定位 */
+  top: 200px;           /* 距离顶部多少像素，可调整 */
+  right: 50px;          /* 紧贴右边 */
+  width: 250px;         /* 固定宽度，避免被挤压 */
+  padding: 20px;        /* 内边距 */
+  border: 1px solid rgb(190, 189, 189); /* 方框 */
+  background: white;    /* 给个背景，避免和地图混在一起 */
+  bottom: 300px;       /* 固定高度 */
+  overflow-y: auto; /* 内容多时出现滚动条 */
+  z-index: 1000;        /* 确保在最上层 */
+  /* 光晕效果 */
+  box-shadow: 0 0 15px 5px rgba(146, 146, 146, 0.5);
+  border-radius: 15px;  /* 四个角圆滑 */
 }
 
 .legend {
@@ -18,4 +71,49 @@ body {
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 0.4rem;
+}
+
+/* 默认：桌面端布局 */
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+/* 手机端布局 */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;  /* 从左右改成上下 */
+    height: auto;          /* 高度由内容决定 */
+  }
+
+   #map {
+    width: 100%;      /* 设定宽度-填满容器 */
+    height: 50%;  /* 手机屏幕小，地图设定一个合适高度 */
+  }
+
+   #info {
+    position: static; /* 取消绝对定位 */
+    width: 100%;   /* 信息框宽度占满屏幕 */
+    margin-left: 0;
+    right: 0;      /* 紧贴右边 */
+    border-radius: 0;  /* 手机上可选去掉圆角 */
+    min-height: 200px;  /* 给点最小高度 */
+  }
+
+  h1 {
+  text-align: center;      /* 居中 */
+  font-family: 'Georgia', serif;  /* 换个更正式的字体 */
+  font-size: 1.5rem;       /* 调大字号 */
+  font-weight: bold;       /* 加粗 */
+  
+  border-bottom: 3px solid #626262; /*下划线 */
+  padding-bottom: 10px; /*元素内部下方的留白（内容 ↔ 边框之间）*/
+  margin-bottom: 10px; /*元素外部下方的留白（边框 ↔ 外部元素之间）*/
+  color: #222;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+}
 }

@@ -52,7 +52,7 @@ legend.onAdd = function(map) {
 legend.addTo(map);
 
 dataLayer.bindTooltip((layer) => layer.feature.properties.name);
-dataLayer.addEventListener('click', (evt) => {
+dataLayer.addEventListener('click', (evt) => { //“click”是leaflet里的什么东西，evt又是什么，这里开始是在添加点击事件
   const props = evt.layer.feature.properties;
   const infoDiv = document.getElementById('info');
 
